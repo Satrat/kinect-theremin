@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Kinect;
 using NAudio.Wave;
 
 namespace KinectThereminVisualStudio
@@ -19,10 +20,83 @@ namespace KinectThereminVisualStudio
     public partial class MainWindow : Window
     {
         WaveOut waveOut;
+        KinectSensor sensor;
+        ColorFrameReader colorFrameReader;
+        BodyFrameReader bodyFrameReader;
+        WriteableBitmap colorBitmap;
+        Body[] bodies;
 
         public MainWindow()
         {
             InitializeComponent();
+            sensor = KinectSensor.GetDefault();
+            sensor.Open();
+
+            colorFrameReader = sensor.ColorFrameSource.OpenReader();
+            bodyFrameReader = sensor.BodyFrameSource.OpenReader();
+
+            colorFrameReader.FrameArrived += colorFrameReader_FrameArrived;
+            bodyFrameReader.FrameArrived += bodyFrameReader_FrameArrived;
+
+            colorBitmap = new WriteableBitmap(1920, 1080, 96.0, 96.0, PixelFormats.Bgr32, null);
+            ColorImage.Source = colorBitmap;
+        }
+        void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
+        {
+            using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
+            {
+                if (bodyFrame == null)
+                {
+                    bodies = new Body[bodyFrame.BodyCount];
+                }
+
+                bodyFrame.GetAndRefreshBodyData(bodies);
+
+                foreach (var body in bodies)
+                {
+                    if (body.IsTracked)
+                    {
+                        var joints = body.Joints;
+                        var handRight = joints[JointType.HandRight];
+                        var handLeft = joints[JointType.HandLeft];
+
+                        if (handRight.TrackingState == TrackingState.Tracked && handLeft.TrackingState == TrackingState.Tracked)
+                        {
+                            handLx.Content = handLeft.Position.X;
+                            handLy.Content = handLeft.Position.Y;
+                            handLz.Content = handLeft.Position.Z;
+                            handRx.Content = handRight.Position.X;
+                            handRy.Content = handRight.Position.Y;
+                            handRz.Content = handRight.Position.Z;
+                        }
+                    }
+                }
+            }
+        }
+
+        void colorFrameReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
+        {
+            using (ColorFrame colorFrame = e.FrameReference.AcquireFrame())
+            {
+                if (colorFrame == null)
+                {
+                    return;
+                }
+
+                using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer());
+                {
+                    colorBitmap.Lock();
+
+                    colorFrame.CopyConvertedFrameDataToIntPtr(
+                        colorBitmap.BackBuffer,
+                        (uint)(1920 * 1080 * 4),
+                        ColorImageFormat.Bgra);
+
+                    colorBitmap.AddDirtyRect(
+                        new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight));
+                    colorBitmap.Unlock();
+                }
+            }
         }
 
         private void playWave_Click(object sender, EventArgs e)
@@ -50,8 +124,11 @@ namespace KinectThereminVisualStudio
                 waveOut.Dispose();
                 waveOut = null;
             }
+
+
         }
     }
+
 
     class SineWaveOscillator : WaveProvider16
     //https://msdn.microsoft.com/en-us/magazine/ee309883.aspx
