@@ -28,3 +28,7 @@ C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\Kin
 C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.g.resources
 C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.Properties.Resources.resources
 C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csproj.GenerateResource.Cache
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\Microsoft.Kinect.dll
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\Microsoft.Kinect.xml
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\Microsoft.Kinect.dll
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\Microsoft.Kinect.xml
