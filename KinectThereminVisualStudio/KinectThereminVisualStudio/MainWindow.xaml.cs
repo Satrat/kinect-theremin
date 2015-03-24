@@ -25,6 +25,8 @@ namespace KinectThereminVisualStudio
         BodyFrameReader bodyFrameReader;
         WriteableBitmap colorBitmap;
         Body[] bodies;
+        double multiplier;
+        public double freq;
 
         public MainWindow()
         {
@@ -40,6 +42,8 @@ namespace KinectThereminVisualStudio
 
             colorBitmap = new WriteableBitmap(1920, 1080, 96.0, 96.0, PixelFormats.Bgr32, null);
             ColorImage.Source = colorBitmap;
+
+            multiplier = 220;
         }
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
@@ -49,7 +53,7 @@ namespace KinectThereminVisualStudio
                 {
                     return;
                 }
-                if (bodies == null) ;
+                if (bodies == null);
                 {
                     bodies = new Body[bodyFrame.BodyCount];
                 }
@@ -72,6 +76,7 @@ namespace KinectThereminVisualStudio
                             handRx.Content = handRight.Position.X;
                             handRy.Content = handRight.Position.Y;
                             handRz.Content = handRight.Position.Z;
+                            freq = handLeft.Position.X * multiplier;
                         }
                     }
                 }
@@ -115,7 +120,7 @@ namespace KinectThereminVisualStudio
             {
                 waveOut = new WaveOut();
                 SineWaveOscillator osc = new SineWaveOscillator(44100); //standard sampling frequency
-                osc.Frequency = 440; //A
+                osc.Frequency = freq; //A
                 osc.Amplitude = 8192;
                 waveOut.Init(osc);
                 waveOut.Play();
