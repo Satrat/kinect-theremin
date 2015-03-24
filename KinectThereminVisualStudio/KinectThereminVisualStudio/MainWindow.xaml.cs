@@ -76,7 +76,8 @@ namespace KinectThereminVisualStudio
                             handRx.Content = handRight.Position.X;
                             handRy.Content = handRight.Position.Y;
                             handRz.Content = handRight.Position.Z;
-                            freq = handLeft.Position.X * multiplier;
+                            freq = handLeft.Position.Z * multiplier;
+                            freqLabel.Content = freq;
                         }
                     }
                 }
