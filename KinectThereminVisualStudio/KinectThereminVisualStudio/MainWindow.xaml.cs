@@ -16,9 +16,6 @@ using NAudio.Wave;
 
 namespace KinectThereminVisualStudio
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         WaveOut waveOut;
@@ -35,16 +32,18 @@ namespace KinectThereminVisualStudio
 
         private void StartStopSineWave()
         {
+            //if no sound, start sine wave
             if (waveOut == null)
             {
                 waveOut = new WaveOut();
-                SineWaveOscillator osc = new SineWaveOscillator(44100);
-                osc.Frequency = 440;
+                SineWaveOscillator osc = new SineWaveOscillator(44100); //standard sampling frequency
+                osc.Frequency = 440; //A
                 osc.Amplitude = 8192;
                 waveOut.Init(osc);
                 waveOut.Play();
             }
 
+            //if playing, stop sine wave
             else
             {
                 waveOut.Stop();
@@ -55,8 +54,9 @@ namespace KinectThereminVisualStudio
     }
 
     class SineWaveOscillator : WaveProvider16
+    //https://msdn.microsoft.com/en-us/magazine/ee309883.aspx
     {
-        double phaseAngle;
+        double phaseAngle; //ranges between 0 and 2*PI
 
         public SineWaveOscillator(int sampleRate) :
             base(sampleRate, 1)
@@ -66,19 +66,25 @@ namespace KinectThereminVisualStudio
         public double Frequency { set; get; }
         public short Amplitude { set; get; }
 
-        public override int Read(short[] buffer, int offset,
-          int sampleCount)
+        //called 10 times a second(default)
+        //fills buffer with waveform data
+        public override int Read(short[] buffer, int offset, int sampleCount)
         {
 
+            //for each sample(taken 10 times a second)
             for (int index = 0; index < sampleCount; index++)
             {
-                buffer[offset + index] =
-                  (short)(Amplitude * Math.Sin(phaseAngle));
-                phaseAngle +=
-                  2 * Math.PI * Frequency / WaveFormat.SampleRate;
+                //pass phaseAngle to Math.Sin and add to buffer
+                buffer[offset + index] = (short)(Amplitude * Math.Sin(phaseAngle));
 
+                //increase by phase angle increment
+                phaseAngle += 2 * Math.PI * Frequency / WaveFormat.SampleRate;
+
+                //ensures angle doesn't exceed 2*PI
                 if (phaseAngle > 2 * Math.PI)
+                {
                     phaseAngle -= 2 * Math.PI;
+                }
             }
             return sampleCount;
         }
