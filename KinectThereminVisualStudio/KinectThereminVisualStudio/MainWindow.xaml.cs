@@ -15,6 +15,10 @@ using System.Windows.Shapes;
 using Microsoft.Kinect;
 using NAudio.Wave;
 
+// Kinect Theremin
+// Created by Sara Adkins and Adam Zeloof
+// 3-23-2015
+
 namespace KinectThereminVisualStudio
 {
     public partial class MainWindow : Window
@@ -30,21 +34,27 @@ namespace KinectThereminVisualStudio
 
         public MainWindow()
         {
+            // Connects to the kinect sensor and initializes the service
             InitializeComponent();
             sensor = KinectSensor.GetDefault();
             sensor.Open();
 
+            // Sets up readers for the relevant data sources
             colorFrameReader = sensor.ColorFrameSource.OpenReader();
             bodyFrameReader = sensor.BodyFrameSource.OpenReader();
 
+            // Creates event handlers
             colorFrameReader.FrameArrived += colorFrameReader_FrameArrived;
             bodyFrameReader.FrameArrived += bodyFrameReader_FrameArrived;
 
+            // Creates a blank bitmap for storing color data
             colorBitmap = new WriteableBitmap(1920, 1080, 96.0, 96.0, PixelFormats.Bgr32, null);
             ColorImage.Source = colorBitmap;
 
+            // Note multiplier- used in determining the frequency that is played
             multiplier = 220;
         }
+        // BodyFrameReader event handler
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
@@ -57,7 +67,7 @@ namespace KinectThereminVisualStudio
                 {
                     bodies = new Body[bodyFrame.BodyCount];
                 }
-
+                // Updates body data
                 bodyFrame.GetAndRefreshBodyData(bodies);
 
                 foreach (var body in bodies)
@@ -65,11 +75,13 @@ namespace KinectThereminVisualStudio
                     if (body.IsTracked)
                     {
                         var joints = body.Joints;
+                        // Sets up tracking for left and right hands
                         var handRight = joints[JointType.HandRight];
                         var handLeft = joints[JointType.HandLeft];
 
                         if (handRight.TrackingState == TrackingState.Tracked && handLeft.TrackingState == TrackingState.Tracked)
                         {
+                            // Updates the onscreen labels with current data
                             handLx.Content = handLeft.Position.X;
                             handLy.Content = handLeft.Position.Y;
                             handLz.Content = handLeft.Position.Z;
@@ -83,7 +95,7 @@ namespace KinectThereminVisualStudio
                 }
             }
         }
-
+        // ColorFrameReader event handler
         void colorFrameReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
         {
             using (ColorFrame colorFrame = e.FrameReference.AcquireFrame())
@@ -92,7 +104,7 @@ namespace KinectThereminVisualStudio
                 {
                     return;
                 }
-
+                 // Locks raw pixel data for the captured frame
                 using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer());
                 {
                     colorBitmap.Lock();
@@ -102,6 +114,7 @@ namespace KinectThereminVisualStudio
                         (uint)(1920 * 1080 * 4),
                         ColorImageFormat.Bgra);
 
+                    // Defines the entire image as update space
                     colorBitmap.AddDirtyRect(
                         new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight));
                     colorBitmap.Unlock();
