@@ -1,0 +1,16 @@
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.exe.config
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.exe
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.pdb
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\NAudio.dll
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\NAudio.WindowsMediaFormat.dll
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\NAudio.xml
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csprojResolveAssemblyReference.cache
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\MainWindow.baml
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\MainWindow.g.cs
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\App.g.cs
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio_MarkupCompile.cache
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.g.resources
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.Properties.Resources.resources
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csproj.GenerateResource.Cache
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.exe
+C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.pdb
