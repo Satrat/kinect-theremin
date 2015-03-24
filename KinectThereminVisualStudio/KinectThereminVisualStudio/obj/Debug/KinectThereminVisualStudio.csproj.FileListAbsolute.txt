@@ -14,3 +14,17 @@ C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectT
 C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csproj.GenerateResource.Cache
 C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.exe
 C:\Users\Sara\Documents\GitHub\KinectTheremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.pdb
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.exe.config
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.exe
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.pdb
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.exe
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\KinectThereminVisualStudio.pdb
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\bin\Debug\NAudio.xml
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csprojResolveAssemblyReference.cache
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\MainWindow.baml
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\MainWindow.g.cs
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\App.g.cs
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio_MarkupCompile.cache
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.g.resources
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.Properties.Resources.resources
+C:\Users\Adam Zeloof\Source\Repos\kinect-theremin\KinectThereminVisualStudio\KinectThereminVisualStudio\obj\Debug\KinectThereminVisualStudio.csproj.GenerateResource.Cache
