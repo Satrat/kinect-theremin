@@ -4,7 +4,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="playWave" Content="Play" HorizontalAlignment="Left" Margin="432,289,0,0" VerticalAlignment="Top" Width="75" Click="playWave_Click"/>
-        <Image x:Name="ColorImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Fill"/>
+        <Image x:Name="ColorImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill"/>
         <Label x:Name="handLx" Content="handLx" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="handLy" Content="handLy" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
         <Label x:Name="handLz" Content="handLz" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
@@ -12,6 +12,7 @@
         <Label x:Name="handRy" Content="handRy" HorizontalAlignment="Right" Margin="459,36,0,0" VerticalAlignment="Top"/>
         <Label x:Name="handRz" Content="handRz" HorizontalAlignment="Right" Margin="0,67,0,0" VerticalAlignment="Top"/>
         <Label x:Name="freqLabel" Content="Frequency" HorizontalAlignment="Left" Margin="432,246,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="BodyOverlay" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" Opacity="0.5"/>
 
     </Grid>
 </Window>

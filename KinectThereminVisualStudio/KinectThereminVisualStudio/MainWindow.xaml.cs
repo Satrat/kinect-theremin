@@ -28,6 +28,7 @@ namespace KinectThereminVisualStudio
         ColorFrameReader colorFrameReader;
         BodyFrameReader bodyFrameReader;
         WriteableBitmap colorBitmap;
+        DrawingGroup bodyHighlight;
         Body[] bodies;
         double multiplier;
         public double freq;
@@ -53,6 +54,9 @@ namespace KinectThereminVisualStudio
 
             // Note multiplier- used in determining the frequency that is played
             multiplier = 220;
+
+            // Creates the graphics that highlight the user's image
+            bodyHighlight = new DrawingGroup();
         }
         // BodyFrameReader event handler
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -90,6 +94,18 @@ namespace KinectThereminVisualStudio
                             handRz.Content = handRight.Position.Z;
                             freq = handLeft.Position.Z * multiplier;
                             freqLabel.Content = freq;
+
+                            using (var canvas = bodyHighlight.Open())
+                            {
+                                // Place a circle around the user's left hand
+                                canvas.DrawEllipse(Brushes.Red, null, new Point(handLeft.Position.X, handLeft.Position.Y), 30, 30);
+
+                                // Place a circle around the user's right hand
+                                canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, handRight.Position.Y), 30, 30);
+
+                                // Pushes bodyHighlight to the window
+                                BodyOverlay.Source = new DrawingImage(bodyHighlight);
+                            }
                         }
                     }
                 }
