@@ -33,6 +33,7 @@ namespace KinectThereminVisualStudio
         public double pitch;
         SineWaveOscillator osc;
         double baseNote;
+        double baseVol;
         float freqMult;
 
         public MainWindow()
@@ -58,7 +59,7 @@ namespace KinectThereminVisualStudio
             bodyHighlight = new DrawingGroup();
 
             osc = new SineWaveOscillator(44100);
-            osc.Amplitude = 8192;
+            osc.Amplitude = 4000;
             osc.Frequency = 440;
             waveOut = new WaveOut();
             waveOut.Init(osc);
@@ -101,6 +102,8 @@ namespace KinectThereminVisualStudio
                             handRz.Content = handRight.Position.Z;
 
                             osc.Frequency = baseNote + freqMult * handRight.Position.Y;
+                            osc.Amplitude = baseVol + freqMult * 200 * handLeft.Position.Y;
+
                             freqLabel.Content = osc.Frequency;
                             if (waveOut != null)
                             {
@@ -163,7 +166,7 @@ namespace KinectThereminVisualStudio
         }
 
         public double Frequency { set; get; }
-        public short Amplitude { set; get; }
+        public double Amplitude { set; get; }
 
         //called 10 times a second(default)
         //fills buffer with waveform data
