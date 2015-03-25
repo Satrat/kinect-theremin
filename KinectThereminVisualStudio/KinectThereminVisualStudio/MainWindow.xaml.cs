@@ -101,6 +101,7 @@ namespace KinectThereminVisualStudio
                             handRz.Content = handRight.Position.Z;
 
                             osc.Frequency = baseNote + freqMult * handRight.Position.Y;
+                            freqLabel.Content = osc.Frequency;
                             if (waveOut != null)
                             {
                                 waveOut.Play();
