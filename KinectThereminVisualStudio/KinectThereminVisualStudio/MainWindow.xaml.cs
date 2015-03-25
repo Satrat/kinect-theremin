@@ -105,10 +105,10 @@ namespace KinectThereminVisualStudio
                             using (var canvas = bodyHighlight.Open())
                             {
                                 // Place a circle around the user's left hand
-                                canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
+                                //canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
 
                                 // Place a circle around the user's right hand
-                                //canvas.DrawEllipse(Brushes.Blue, null, new Point(-handRight.Position.X, handRight.Position.Y), 1, 1);
+                                canvas.DrawEllipse(Brushes.Blue, null, new Point(-handRight.Position.X, handRight.Position.Y), 1, 1);
 
                                 // Pushes bodyHighlight to the window
                                 BodyOverlay.Source = new DrawingImage(bodyHighlight);
