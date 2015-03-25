@@ -64,6 +64,7 @@ namespace KinectThereminVisualStudio
             waveOut = new WaveOut();
             waveOut.Init(osc);
             baseNote = 440;
+            baseVol = 4000;
             freqMult = 220.0f;
         }
         // BodyFrameReader event handler
@@ -102,7 +103,7 @@ namespace KinectThereminVisualStudio
                             handRz.Content = handRight.Position.Z;
 
                             osc.Frequency = baseNote + freqMult * handRight.Position.Y;
-                            osc.Amplitude = baseVol + freqMult * 200 * handLeft.Position.Y;
+                            osc.Amplitude = baseVol + freqMult * 300 * handLeft.Position.Y;
 
                             freqLabel.Content = osc.Frequency;
                             if (waveOut != null)
