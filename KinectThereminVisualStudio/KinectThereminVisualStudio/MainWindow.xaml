@@ -1,9 +1,10 @@
 ﻿<Window x:Class="KinectThereminVisualStudio.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Kinect Theremin" Height="350" Width="525">
     <Grid>
         <Image x:Name="ColorImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill"/>
+        <Image x:Name="BodyOverlay" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" Opacity="0.5"/>
         <Label x:Name="handLx" Content="handLx" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="#FFF1A0A0" Width="75"/>
         <Label x:Name="handLy" Content="handLy" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Background="#FFF1A0A0" Width="75"/>
         <Label x:Name="handLz" Content="handLz" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Background="#FFF1A0A0" Width="75"/>
@@ -11,7 +12,7 @@
         <Label x:Name="handRy" Content="handRy" HorizontalAlignment="Right" Margin="0,36,8,0" VerticalAlignment="Top" Background="#FF58C6F0" Width="78"/>
         <Label x:Name="handRz" Content="handRz" HorizontalAlignment="Right" Margin="0,62,8,0" VerticalAlignment="Top" Background="#FF58C6F0" Width="78"/>
         <Label x:Name="freqLabel" Content="Frequency" HorizontalAlignment="Center" Margin="230,10,223,0" VerticalAlignment="Top" Width="64" Background="#FF8DE07A"/>
-        <Image x:Name="BodyOverlay" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" Opacity="0.5"/>
+
 
     </Grid>
 </Window>
