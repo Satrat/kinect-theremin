@@ -30,8 +30,8 @@ namespace KinectThereminVisualStudio
         WriteableBitmap colorBitmap;
         DrawingGroup bodyHighlight;
         Body[] bodies;
-        double multiplier;
-        public double freq;
+        public double pitch;
+        SineWaveOscillator osc;
 
         public MainWindow()
         {
@@ -52,11 +52,14 @@ namespace KinectThereminVisualStudio
             colorBitmap = new WriteableBitmap(1920, 1080, 96.0, 96.0, PixelFormats.Bgr32, null);
             ColorImage.Source = colorBitmap;
 
-            // Note multiplier- used in determining the frequency that is played
-            multiplier = 220;
-
             // Creates the graphics that highlight the user's image
             bodyHighlight = new DrawingGroup();
+
+            osc = new SineWaveOscillator(44100);
+            osc.Amplitude = 8192;
+            osc.Frequency = 440;
+            waveOut = new WaveOut();
+            waveOut.Init(osc);
         }
         // BodyFrameReader event handler
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -67,7 +70,7 @@ namespace KinectThereminVisualStudio
                 {
                     return;
                 }
-                if (bodies == null);
+                if (bodies == null)
                 {
                     bodies = new Body[bodyFrame.BodyCount];
                 }
@@ -92,16 +95,20 @@ namespace KinectThereminVisualStudio
                             handRx.Content = handRight.Position.X;
                             handRy.Content = handRight.Position.Y;
                             handRz.Content = handRight.Position.Z;
-                            freq = handLeft.Position.Z * multiplier;
-                            freqLabel.Content = freq;
+
+                            osc.Frequency = 220 * handRight.Position.Z;
+                            if (waveOut != null)
+                            {
+                                waveOut.Play();
+                            }
 
                             using (var canvas = bodyHighlight.Open())
                             {
                                 // Place a circle around the user's left hand
-                                canvas.DrawEllipse(Brushes.Red, null, new Point(handLeft.Position.X, handLeft.Position.Y), 30, 30);
+                                canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
 
                                 // Place a circle around the user's right hand
-                                canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, handRight.Position.Y), 30, 30);
+                                //canvas.DrawEllipse(Brushes.Blue, null, new Point(-handRight.Position.X, handRight.Position.Y), 1, 1);
 
                                 // Pushes bodyHighlight to the window
                                 BodyOverlay.Source = new DrawingImage(bodyHighlight);
@@ -121,7 +128,7 @@ namespace KinectThereminVisualStudio
                     return;
                 }
                  // Locks raw pixel data for the captured frame
-                using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer());
+                using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer())
                 {
                     colorBitmap.Lock();
 
@@ -136,35 +143,6 @@ namespace KinectThereminVisualStudio
                     colorBitmap.Unlock();
                 }
             }
-        }
-
-        private void playWave_Click(object sender, EventArgs e)
-        {
-            StartStopSineWave();
-        }
-
-        private void StartStopSineWave()
-        {
-            //if no sound, start sine wave
-            if (waveOut == null)
-            {
-                waveOut = new WaveOut();
-                SineWaveOscillator osc = new SineWaveOscillator(44100); //standard sampling frequency
-                osc.Frequency = freq; //A
-                osc.Amplitude = 8192;
-                waveOut.Init(osc);
-                waveOut.Play();
-            }
-
-            //if playing, stop sine wave
-            else
-            {
-                waveOut.Stop();
-                waveOut.Dispose();
-                waveOut = null;
-            }
-
-
         }
     }
 
