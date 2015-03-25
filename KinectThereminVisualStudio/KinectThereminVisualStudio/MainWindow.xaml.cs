@@ -23,15 +23,16 @@ namespace KinectThereminVisualStudio
 {
     public partial class MainWindow : Window
     {
-        WaveOut waveOut;
         KinectSensor sensor;
-        ColorFrameReader colorFrameReader;
-        BodyFrameReader bodyFrameReader;
+        ColorFrameReader colorFrameReader; //camera visual
+        BodyFrameReader bodyFrameReader; //body sensor
         WriteableBitmap colorBitmap;
         DrawingGroup bodyHighlight;
         Body[] bodies;
-        public double pitch;
+
+        WaveOut waveOut;
         SineWaveOscillator osc;
+        double pitch;
         double baseNote;
         double baseVol;
         float freqMult;
@@ -58,6 +59,7 @@ namespace KinectThereminVisualStudio
             // Creates the graphics that highlight the user's image
             bodyHighlight = new DrawingGroup();
 
+            //initializing sound components, default is A4
             osc = new SineWaveOscillator(44100);
             osc.Amplitude = 4000;
             osc.Frequency = 440;
@@ -67,6 +69,7 @@ namespace KinectThereminVisualStudio
             baseVol = 4000;
             freqMult = 220.0f;
         }
+
         // BodyFrameReader event handler
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
@@ -80,6 +83,7 @@ namespace KinectThereminVisualStudio
                 {
                     bodies = new Body[bodyFrame.BodyCount];
                 }
+
                 // Updates body data
                 bodyFrame.GetAndRefreshBodyData(bodies);
 
@@ -102,10 +106,14 @@ namespace KinectThereminVisualStudio
                             handRy.Content = handRight.Position.Y;
                             handRz.Content = handRight.Position.Z;
 
+                            //pitch increases as right hand moves up, volume increases as left hand moves up
                             osc.Frequency = baseNote + freqMult * handRight.Position.Y;
                             osc.Amplitude = baseVol + freqMult * 300 * handLeft.Position.Y;
 
+                            //frequency output on screen in label
                             freqLabel.Content = osc.Frequency;
+
+                            //plays note only if kinect has sensed a body
                             if (waveOut != null)
                             {
                                 waveOut.Play();
@@ -114,7 +122,7 @@ namespace KinectThereminVisualStudio
                             using (var canvas = bodyHighlight.Open())
                             {
                                 // Place a circle around the user's left hand
-                                // canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
+                                canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
 
                                 // Place a circle around the user's right hand
                                 canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, handRight.Position.Y), 1, 1);
@@ -127,6 +135,7 @@ namespace KinectThereminVisualStudio
                 }
             }
         }
+
         // ColorFrameReader event handler
         void colorFrameReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
         {
@@ -136,6 +145,7 @@ namespace KinectThereminVisualStudio
                 {
                     return;
                 }
+
                  // Locks raw pixel data for the captured frame
                 using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer())
                 {
@@ -147,8 +157,7 @@ namespace KinectThereminVisualStudio
                         ColorImageFormat.Bgra);
 
                     // Defines the entire image as update space
-                    colorBitmap.AddDirtyRect(
-                        new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight));
+                    colorBitmap.AddDirtyRect(new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight));
                     colorBitmap.Unlock();
                 }
             }
