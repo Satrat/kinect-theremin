@@ -32,6 +32,8 @@ namespace KinectThereminVisualStudio
         Body[] bodies;
         public double pitch;
         SineWaveOscillator osc;
+        double baseNote;
+        float freqMult;
 
         public MainWindow()
         {
@@ -60,6 +62,8 @@ namespace KinectThereminVisualStudio
             osc.Frequency = 440;
             waveOut = new WaveOut();
             waveOut.Init(osc);
+            baseNote = 440;
+            freqMult = 220.0f;
         }
         // BodyFrameReader event handler
         void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -96,7 +100,7 @@ namespace KinectThereminVisualStudio
                             handRy.Content = handRight.Position.Y;
                             handRz.Content = handRight.Position.Z;
 
-                            osc.Frequency = 220 * handRight.Position.Z;
+                            osc.Frequency = baseNote + freqMult * handRight.Position.Y;
                             if (waveOut != null)
                             {
                                 waveOut.Play();
@@ -105,10 +109,10 @@ namespace KinectThereminVisualStudio
                             using (var canvas = bodyHighlight.Open())
                             {
                                 // Place a circle around the user's left hand
-                                canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
+                                // canvas.DrawEllipse(Brushes.Red, null, new Point(-handLeft.Position.X, handLeft.Position.Y), 1, 1);
 
                                 // Place a circle around the user's right hand
-                                //canvas.DrawEllipse(Brushes.Blue, null, new Point(-handRight.Position.X, handRight.Position.Y), 1, 1);
+                                canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, handRight.Position.Y), 1, 1);
 
                                 // Pushes bodyHighlight to the window
                                 BodyOverlay.Source = new DrawingImage(bodyHighlight);
