@@ -29,11 +29,12 @@ namespace KinectThereminVisualStudio
         WriteableBitmap colorBitmap;
         DrawingGroup bodyHighlight;
         Body[] bodies;
-
         WaveOut waveOut;
         SineWaveOscillator osc;
-        double pitch;
-        double baseNote;
+        double freqReference;
+        double freqRatio;
+        double pitchReference;
+        double currentPitch;
         double baseVol;
         float freqMult;
 
@@ -65,7 +66,10 @@ namespace KinectThereminVisualStudio
             osc.Frequency = 440;
             waveOut = new WaveOut();
             waveOut.Init(osc);
-            baseNote = 440;
+            freqReference = 440; //A5
+            freqRatio = Math.Pow(Math.Pow(2.0, 1 / 2), 12.0);
+            pitchReference = 49; //A5
+            currentPitch = 49; 
             baseVol = 4000;
             freqMult = 220.0f;
         }
@@ -107,8 +111,18 @@ namespace KinectThereminVisualStudio
                             handRz.Content = handRight.Position.Z;
 
                             //pitch increases as right hand moves up, volume increases as left hand moves up
-                            osc.Frequency = baseNote + freqMult * handRight.Position.Y;
-                            osc.Amplitude = baseVol + freqMult * 300 * handLeft.Position.Y;
+                            if (handRight.Position.Y <= 1.5)
+                            {
+                                currentPitch = handLeft.Position.Y / (1 / 6) * -1 + pitchReference;
+                            }
+                            else if (handRight.Position.Y > 1.5)
+                            {
+                                currentPitch = handLeft.Position.Y / (1 / 6) + pitchReference;
+                            }
+
+                            currentPitch = pitchReference + handRight.Position.Y;
+                            osc.Frequency = freqReference * Math.Pow(freqRatio, currentPitch - pitchReference);
+                            osc.Amplitude = handLeft.Position.Y/.05 * 2716;
 
                             //frequency output on screen in label
                             freqLabel.Content = osc.Frequency;
@@ -125,10 +139,10 @@ namespace KinectThereminVisualStudio
                                 canvas.DrawRectangle(Brushes.Transparent, null, new Rect(0, 0, Width, Height));
 
                                 // Place a circle around the user's left hand
-                                canvas.DrawEllipse(Brushes.Red, null, new Point(handLeft.Position.X, -handLeft.Position.Y), 20, 20);
+                                canvas.DrawEllipse(Brushes.Red, null, new Point(handLeft.Position.X, handLeft.Position.Y), 20, 20);
 
                                 // Place a circle around the user's right hand
-                                canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, -handRight.Position.Y), 20, 20);
+                                canvas.DrawEllipse(Brushes.Blue, null, new Point(handRight.Position.X, handRight.Position.Y), 20, 20);
 
                                 // Pushes bodyHighlight to the window
                                 BodyOverlay.Source = new DrawingImage(bodyHighlight);
